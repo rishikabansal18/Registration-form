@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.2);
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    background: white;
+    color: #667eea;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.container {
+    text-align: center;
+    margin-top: 100px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h3>Dashboard</h3>
+    <button onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+    <h1 id="welcome"></h1>
+    <p>You are successfully logged in 🎉</p>
+</div>
+
+<script>
+let user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+    window.location.href = "login.html";
+}
+
+document.getElementById("welcome").innerText = "Welcome, " + user.fname + " 👋";
+
+function logout(){
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

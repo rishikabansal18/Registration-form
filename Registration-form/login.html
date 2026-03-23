@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
+<style>
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #5a67d8;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}
+
+.success {
+    color: green;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button onclick="login()">Login</button>
+
+    <div class="error" id="error"></div>
+    <div class="success" id="success"></div>
+</div>
+
+<script>
+function login(){
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    let storedUser = JSON.parse(localStorage.getItem("user"));
+
+    document.getElementById("error").innerText = "";
+    document.getElementById("success").innerText = "";
+
+    if(!storedUser){
+        document.getElementById("error").innerText = "No user found. Please register first.";
+        return;
+    }
+
+    if(email === storedUser.email && password === storedUser.password){
+        window.location.href = "dashboard.html";
+    } else {
+        document.getElementById("error").innerText = "Invalid email or password";
+    }
+}
+</script>
+
+</body>
+</html>

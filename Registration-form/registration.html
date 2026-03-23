@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    margin-bottom: 12px;
+}
+
+label {
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 7px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+input:focus {
+    border-color: #667eea;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #5a67d8;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+.success {
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+
+    <form id="form">
+        <div class="input-group">
+            <label>First Name</label>
+            <input type="text" id="fname">
+            <div class="error" id="fnameError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="email">
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password">
+            <div class="error" id="passError"></div>
+        </div>
+
+        <button type="submit">Register</button>
+        <div class="success" id="successMsg"></div>
+    </form>
+</div>
+
+<script>
+const form = document.getElementById("form");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let valid = true;
+
+    let fname = document.getElementById("fname").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    document.getElementById("fnameError").innerText = "";
+    document.getElementById("emailError").innerText = "";
+    document.getElementById("passError").innerText = "";
+    document.getElementById("successMsg").innerText = "";
+
+    if(fname === ""){
+        document.getElementById("fnameError").innerText = "Name required";
+        valid = false;
+    }
+
+    if(!email.includes("@")){
+        document.getElementById("emailError").innerText = "Invalid email";
+        valid = false;
+    }
+
+    if(password.length < 6){
+        document.getElementById("passError").innerText = "Min 6 characters";
+        valid = false;
+    }
+
+    if(valid){
+        const user = {fname, email, password};
+
+        localStorage.setItem("user", JSON.stringify(user));
+
+        document.getElementById("successMsg").innerText = "Registration Successful 🎉";
+
+        // redirect after 1 second
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1000);
+
+        form.reset();
+    }
+});
+</script>
+
+</body>
+</html>
